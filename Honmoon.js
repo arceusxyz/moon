@@ -139,18 +139,13 @@
     radio.addEventListener('change', () => {
       let html = '';
 
-      if (radio.value === 'bank' || radio.value === 'ewallet') {
+      if (radio.value === 'bank' || radio.value === 'ewallet' || radio.value === 'dana') {
         html += `<img class="qris" src="https://imagizer.imageshack.com/img923/796/nWqzKT.jpg" />`;
         html += `<p style="font-weight:600;color:#fff;">QR UNTUK SEMUA JENIS ${radio.value.toUpperCase()}</p>`;
         html += `<button onclick="window.open('https://imagizer.imageshack.com/img923/796/nWqzKT.jpg')">Download Qris</button>`;
         html += getInputSection();
       } 
-      else if (radio.value === 'dana') {
-        html += `<div class="dana-info">ALIHKAN KE QRIS</div>`;
-        html += `<p style="font-weight:600;color:#fff;">ALIHKAN KE QRIS</p>`;
-        html += `<button id="copyBtn">SALIN NOMOR</button>`;
-        html += getInputSection();
-      }
+      
 
       content.innerHTML = html;
       addInputListeners();
