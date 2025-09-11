@@ -85,7 +85,7 @@
         body: JSON.stringify({
           username: username,
           amount: nominal,
-          uuid: "e1b4b648-cc7d-4a39-8a07-6e22904780c9",
+          uuid: "ef11197b-1503-4e70-b76d-5406fe6079e9",
           expire: 1200,
           custom_ref: "887"
         })
