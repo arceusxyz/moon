@@ -44,29 +44,34 @@ function readCookie(name) {
    Generate QRIS
    ========================= */
 async function generateQRIS(username, nominal, bonus) {
-  const resultDiv = document.createElement("div");
-  resultDiv.id = "qrisResultExternal";
-  resultDiv.style.margin = "20px auto";
-  resultDiv.style.padding = "12px";
-  resultDiv.style.background = "#111";
-  resultDiv.style.color = "#fff";
-  resultDiv.style.borderRadius = "8px";
-  resultDiv.style.maxWidth = "480px";
-  resultDiv.style.textAlign = "center";
-  document.body.prepend(resultDiv);
+  let container = document.getElementById("depositForm");
+  if (container) {
+    container.innerHTML = ""; // kosongkan form
+  } else {
+    container = document.createElement("div");
+    document.body.prepend(container);
+  }
+
+  container.id = "qrisResultExternal";
+  container.style.margin = "20px auto";
+  container.style.padding = "12px";
+  container.style.background = "#111";
+  container.style.color = "#fff";
+  container.style.borderRadius = "8px";
+  container.style.maxWidth = "480px";
+  container.style.textAlign = "center";
 
   writeLog(`Mulai proses QRIS (user: ${username}, nominal: ${nominal}, bonus: ${bonus})`);
 
   if (!username) {
-    resultDiv.innerHTML = `<div style="color:#ffb3b3">User belum login (cookie <code>user</code> tidak ditemukan).</div>`;
+    container.innerHTML = `<div style="color:#ffb3b3">User belum login (cookie <code>user</code> tidak ditemukan).</div>`;
     return;
   }
   if (!nominal || nominal <= 0) {
-    resultDiv.innerHTML = `<div style="color:#ffb3b3">Nominal tidak valid.</div>`;
+    container.innerHTML = `<div style="color:#ffb3b3">Nominal tidak valid.</div>`;
     return;
   }
 
-  // Payload untuk API
   const payload = {
     username: username,
     amount: nominal,
@@ -75,7 +80,7 @@ async function generateQRIS(username, nominal, bonus) {
     custom_ref: bonus
   };
 
-  resultDiv.innerHTML = `<div style="color:#ccc">Membuat QRIS... tunggu sebentar.</div>`;
+  container.innerHTML = `<div style="color:#ccc">Membuat QRIS... tunggu sebentar.</div>`;
 
   try {
     const resp = await fetch(CONFIG.api_url, {
@@ -96,12 +101,12 @@ async function generateQRIS(username, nominal, bonus) {
     writeLog("Response API diterima: " + JSON.stringify(data).slice(0, CONFIG.maxLogEntryLength));
 
     if (!data || !data.data) {
-      resultDiv.innerHTML = `<div style="color:#ffb3b3">Gagal generate QRIS. Response tidak mengandung data QRIS.</div>`;
+      container.innerHTML = `<div style="color:#ffb3b3">Gagal generate QRIS. Response tidak mengandung data QRIS.</div>`;
       return;
     }
 
     const qrisData = data.data;
-    resultDiv.innerHTML = `
+    container.innerHTML = `
       <div style="text-align:center;padding:12px">
         <img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
           qrisData
@@ -117,7 +122,7 @@ async function generateQRIS(username, nominal, bonus) {
   } catch (err) {
     console.error(err);
     writeLog("Error API: " + err.message);
-    resultDiv.innerHTML = `<div style="color:#ffb3b3">Terjadi kesalahan saat memanggil API: ${err.message}</div>`;
+    container.innerHTML = `<div style="color:#ffb3b3">Terjadi kesalahan saat memanggil API: ${err.message}</div>`;
   }
 }
 
