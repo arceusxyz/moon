@@ -12,7 +12,7 @@
 
     // Ganti value di <select>
     const metodeSelect = document.querySelector('select[name="metode"] option[selected]');
-    if (metodeSelect && metodeSelect.textContent.includes("SMART DIGITAL WORDL")) {
+    if (metodeSelect && metodeSelect.textContent.includes("SMART DIGITAL WORLD")) {
       metodeSelect.textContent = "LUCIFER TOPUP";
     }
   }
